@@ -4,8 +4,9 @@
     <h1 class="post-title">{{ .Title }}</h1>
     <p class="post-meta">
       {{- if or .Params.author .Site.Params.author -}}
-      {{ .Params.author | default .Site.Params.author }} · {{ end }}
-      {{- .Date.Format "2006.1.2" -}}
+      {{ $author := index .Site.Data.authors .Params.author }}
+      {{ $author.name }} · {{ end }}
+      {{- .Date.Format "2.1.2006" -}}
     </p>
   </header>
   <div class="post-content">{{ .Content }}</div>
@@ -17,6 +18,21 @@
       {{ end }}
     </ul>
     {{ end }}
+    <div class="author">
+    {{ if isset .Params "author" }}
+      {{ $author := index .Site.Data.authors .Params.author }}
+      <img class="author-portrait" src="{{ $author.image }}">
+      <div class="author-details">
+        <p class="author-name">{{ $author.name }}</p>
+        <p class="author-bio">{{ $author.bio }}</p>
+        <div class="author-social">
+          <a href="https://twitter.com/{{ $author.social.twitter }}">🐦 Twitter</a>
+          <a href="https://github.com/{{ $author.social.github }}">🐙 Github</a>
+      {{ else }}
+        <p class="author-name">{{ .Site.Params.author }}</p>
+      {{ end }}
+      </div>
+    </div>
   </footer>
   <!-- Comments system area start -->
   {{ if not (eq .Params.comments false) }}

@@ -23,7 +23,11 @@
   </header>
   <p class="post-summary">{{ .Summary | plainify | htmlUnescape }}...</p>
   <footer class="post-footer">
-    <p class="post-meta">{{ .Date.Format "2.1.2006" }}</p>
+    <p class="post-meta">
+    {{- if or .Params.author .Site.Params.author -}}
+      {{ $author := index .Site.Data.authors .Params.author }}
+      {{ $author.name }} · {{ end }}
+    {{ .Date.Format "2.1.2006" }}</p>
   </footer>
   <a class="post-link" href="{{ .Permalink }}"></a>
 </article>
