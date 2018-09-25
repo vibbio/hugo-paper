@@ -486,6 +486,13 @@ pre, code {
   text-decoration: underline;
 }
 
+/* Figure element
+------------------------------ */
+figcaption p {
+  color: rgba(20,29,40, .6);
+  font-size: 16px;
+}
+
 /* List footer
 ------------------------------ */
 .pagination {
